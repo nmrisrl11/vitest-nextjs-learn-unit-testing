@@ -1,65 +1,84 @@
-import Image from "next/image";
+'use client'
+
+import { useState } from 'react'
+import Card from "@/components/Card/Card";
+import ThemedButton from "@/components/ThemedButton/ThemedButton";
 
 export default function Home() {
+  const [isExpanded, setIsExpanded] = useState(false)
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="homepage">
+      <section className="homepage-section homepage-header-section">
+        <header className="homepage-header">
+          <h1>Welcome to Readle</h1>
+          <p>Your personal space for tracking and organizing your favorite books</p>
+        </header>
+      </section>
+
+      <section className="homepage-section homepage-features-section">
+        <ul className="homepage-features pb-8" aria-label="features">
+          <li>
+            <Card link="/books">
+              <h2>Build Your Library</h2>
+              <p>Create and manage your personal reading collection with ease.</p>
+            </Card>
+          </li>
+          <li>
+            <Card link="/books">
+              <h2>Track Your Progress</h2>
+              <p>Keep notes and mark books as read or currently reading.</p>
+            </Card>
+          </li>
+          <li>
+            <Card link="/books">
+              <h2>Discover & Share</h2>
+              <p>Find your next great read and share recommendations.</p>
+            </Card>
+          </li>
+        </ul>
+
+        {isExpanded && (
+          <ul className="homepage-features pb-8" aria-label="more features">
+            <li>
+              <Card>
+                <h2>Premium Tools</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+              </Card>
+            </li>
+            <li>
+              <Card>
+                <h2>Reading Suggestions</h2>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+              </Card>
+            </li>
+            <li>
+              <Card>
+                <h2>Bookmarks</h2>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+              </Card>
+            </li>
+          </ul>
+        )}
+
+        <div className="text-center">
+          <ThemedButton onClick={() => setIsExpanded(!isExpanded)}>
+            {isExpanded ? 'Show Less' : 'Show More'}
+          </ThemedButton>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      <section className="homepage-section homepage-actions-section">
+        <div className="homepage-actions">
+          <h2>Ready to start your reading journey?</h2>
+          <p>Join thousands of readers who are organizing their libraries and discovering new books every day.</p>
+          <div className="homepage-actions-buttons">
+            <ThemedButton>Get Started</ThemedButton>
+            <ThemedButton variant="secondary">Browse Books</ThemedButton>
+          </div>
         </div>
-      </main>
+      </section>
+
     </div>
-  );
+  )
 }
