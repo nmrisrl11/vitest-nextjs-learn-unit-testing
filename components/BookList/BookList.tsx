@@ -1,4 +1,5 @@
 import Link from "next/link";
+
 import type { Book } from "@/lib/types";
 
 interface BookListProps {

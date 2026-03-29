@@ -1,7 +1,8 @@
 "use client";
 
+import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useState, FormEvent } from "react";
+
 import ThemedButton from "@/components/ThemedButton/ThemedButton";
 
 function assessEmail(email: string): string[] {

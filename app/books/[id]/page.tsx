@@ -1,7 +1,8 @@
 "use client";
 
-import { useParams, notFound } from "next/navigation";
 import { useEffect, useState } from "react";
+import { notFound, useParams } from "next/navigation";
+
 import type { Book } from "@/lib/types";
 
 export default function BookDetailsPage() {
@@ -30,7 +31,7 @@ export default function BookDetailsPage() {
 	}, [id]);
 
 	return (
-		<div className="max-w-3xl mx-auto p-8">
+		<div className="mx-auto max-w-3xl p-8">
 			{isLoading && <p>Loading...</p>}
 			{book && (
 				<article className="space-y-6">

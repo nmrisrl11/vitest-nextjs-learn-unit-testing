@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { Book } from "@/lib/types";
+
 import BookList from "@/components/BookList/BookList";
+import type { Book } from "@/lib/types";
 
 export default function BooksPage() {
 	const [books, setBooks] = useState<Book[]>([]);
