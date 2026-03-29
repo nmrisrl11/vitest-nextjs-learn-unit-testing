@@ -16,4 +16,15 @@ describe("Card component", () => {
 		expect(content).toBeInTheDocument();
 		expect(link).toHaveAttribute("href", "/details");
 	});
+
+	it("should render a Card without a link", () => {
+		render(
+			<Card>
+				<p>Card Content</p>
+			</Card>,
+		);
+
+		const link = screen.queryByRole("link", { name: /more/i });
+		expect(link).not.toBeInTheDocument();
+	});
 });
