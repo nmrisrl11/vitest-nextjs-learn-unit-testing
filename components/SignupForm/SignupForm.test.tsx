@@ -25,4 +25,18 @@ describe("SignupForm component", () => {
 		const noEmailIssues = screen.queryByRole("list", { name: /email issues/i });
 		expect(noEmailIssues).not.toBeInTheDocument();
 	});
+
+	it("should show password validation errors when password is weak", async () => {
+		const { user, passwordInput } = setupForm();
+
+		await user.type(passwordInput, "weak1");
+		const passwordIssues = screen.getByRole("list", { name: /password issues/i });
+		expect(passwordIssues).toBeInTheDocument();
+
+		expect(screen.getByText(/8 characters/i)).toBeInTheDocument();
+		expect(screen.getByText(/uppercase letter/i)).toBeInTheDocument();
+		expect(screen.getByText(/symbol/i)).toBeInTheDocument();
+
+		expect(screen.queryByText(/number/i)).not.toBeInTheDocument();
+	});
 });
