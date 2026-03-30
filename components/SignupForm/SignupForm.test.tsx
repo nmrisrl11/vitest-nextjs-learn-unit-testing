@@ -54,4 +54,33 @@ describe("SignupForm component", () => {
 
 		expect(submitButton).toBeEnabled();
 	});
+
+	it("should submit form with valid credentials", async () => {
+		const onSubmitMock = vi.fn();
+
+		const { user, emailInput, passwordInput, submitButton } = setupForm({
+			onSubmit: onSubmitMock,
+		});
+
+		await user.type(emailInput, "valid@gmail.com");
+		await user.type(passwordInput, "Valid@123!");
+		await user.click(submitButton);
+
+		expect(onSubmitMock).toHaveBeenCalledWith("valid@gmail.com", "Valid@123!");
+	});
+
+	it("should not submit form with invalid credentials", async () => {
+		const onSubmitMock = vi.fn();
+
+		const { user, emailInput, passwordInput, submitButton } = setupForm({
+			onSubmit: onSubmitMock,
+		});
+
+		await user.type(emailInput, "invalid-email");
+		await user.type(passwordInput, "invalid");
+		await user.click(submitButton);
+
+		expect(submitButton).toBeDisabled();
+		expect(onSubmitMock).not.toHaveBeenCalled();
+	});
 });
