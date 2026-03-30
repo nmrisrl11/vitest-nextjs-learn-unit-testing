@@ -39,4 +39,19 @@ describe("SignupForm component", () => {
 
 		expect(screen.queryByText(/number/i)).not.toBeInTheDocument();
 	});
+
+	it("should disable submit button initially", () => {
+		const { submitButton } = setupForm();
+
+		expect(submitButton).toBeDisabled();
+	});
+
+	it("should enable submit button when both fields are valid", async () => {
+		const { user, emailInput, passwordInput, submitButton } = setupForm();
+
+		await user.type(emailInput, "valid@gmail.com");
+		await user.type(passwordInput, "Valid@123!");
+
+		expect(submitButton).toBeEnabled();
+	});
 });
