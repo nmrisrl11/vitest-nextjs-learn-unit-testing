@@ -1,5 +1,5 @@
 import { server } from "@/__mocks__/node";
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitForElementToBeRemoved } from "@testing-library/react";
 import { http, HttpResponse } from "msw";
 
 import BooksPage from "./page";
@@ -22,5 +22,15 @@ describe("Books Page", () => {
 
 		const noBooksMessage = await screen.findByText(/no books/i);
 		expect(noBooksMessage).toBeInTheDocument();
+	});
+
+	it("should display a loading state only initially", async () => {
+		render(<BooksPage />);
+
+		const loadingMessage = screen.getByText(/loading/i);
+		expect(loadingMessage).toBeInTheDocument();
+
+		await waitForElementToBeRemoved(loadingMessage);
+		expect(loadingMessage).not.toBeInTheDocument();
 	});
 });
