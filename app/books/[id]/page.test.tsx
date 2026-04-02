@@ -1,5 +1,5 @@
-import { useParams } from "next/navigation";
-import { render, screen } from "@testing-library/react";
+import { notFound, useParams } from "next/navigation";
+import { render, screen, waitForElementToBeRemoved } from "@testing-library/react";
 
 import BookDetailsPage from "./page";
 
@@ -11,5 +11,16 @@ describe("Book Details page", () => {
 
 		const title = await screen.findByText("The Great Gatsby");
 		expect(title).toBeInTheDocument();
+	});
+
+	it("should call notFound for invalid book id", async () => {
+		vi.mocked(useParams).mockReturnValue({ id: "11" });
+
+		render(<BookDetailsPage />);
+
+		const loadingMessage = screen.getByText(/loading/i);
+		await waitForElementToBeRemoved(loadingMessage);
+
+		expect(notFound).toHaveBeenCalledOnce();
 	});
 });
