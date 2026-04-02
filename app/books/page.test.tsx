@@ -33,4 +33,13 @@ describe("Books Page", () => {
 		await waitForElementToBeRemoved(loadingMessage);
 		expect(loadingMessage).not.toBeInTheDocument();
 	});
+
+	it("should display an error message if fetching fails", async () => {
+		server.use(http.get("/api/books", () => HttpResponse.error()));
+
+		render(<BooksPage />);
+
+		const errorMessage = await screen.findByText(/error/i);
+		expect(errorMessage).toBeInTheDocument();
+	});
 });
